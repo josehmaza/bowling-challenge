@@ -1,0 +1,62 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+group 'com.jobsity.challenge'
+version '1.0-SNAPSHOT'
+
+mainClassName = 'com.jobsity.challenge.view.HelloWorld'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+configurations {
+    integrationTestImplementation.extendsFrom implementation
+    integrationTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+
+dependencies {
+    compile "joda-time:joda-time:2.2"
+    integrationTestImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+
+}
+
+test {
+	useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.jobsity.view.HelloWorld'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    description = 'Integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen { false } // other way: inputs.upToDateWhen { false }
+    
+    mustRunAfter test
+}
+
+check.dependsOn integrationTest
