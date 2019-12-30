@@ -3,11 +3,9 @@ package com.jobsity.challenge.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PinFall {
-    private List<Roll> rolls;;
-    //private TypePinFall type;
+public class PinFall implements Scoreable {
+    private List<Roll> rolls;
     private Integer scorePinfall;
-
     public PinFall(){
         rolls = new ArrayList<>(2);
     }
@@ -25,6 +23,8 @@ public class PinFall {
         return scorePinfall;
     }
 
-
-
+    @Override
+    public void calculateScore(CalculateScore cal) {
+        scorePinfall = cal.calculate(this);
+    }
 }

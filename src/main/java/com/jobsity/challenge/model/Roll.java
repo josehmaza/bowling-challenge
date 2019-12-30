@@ -3,11 +3,6 @@ package com.jobsity.challenge.model;
 public class Roll {
     private Integer knockedDownPins;
     private RollType rollType;
-    /*public Roll(Integer score) {
-        this.rollType = score == null ? RollType.FOUL : RollType.VALID;
-        knockedDownPins = score;
-    }*/
-
     public Roll(RollType rollType, Integer rollScore) {
         this.rollType = rollType;
         this.knockedDownPins = rollScore;
@@ -27,5 +22,10 @@ public class Roll {
 
     public void setRollType(RollType rollType) {
         this.rollType = rollType;
+    }
+
+    @Override
+    public String toString() {
+        return new Integer(knockedDownPins).toString()+" "+rollType;
     }
 }

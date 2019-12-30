@@ -1,6 +1,6 @@
 package com.jobsity.challenge.model;
 
-public class Frame {
+public class Frame implements Scoreable{
     private int name;
     private PinFall pinFall;
     private int scoreFrame;
@@ -28,12 +28,14 @@ public class Frame {
         this.name = name;
     }
 
-
+    @Override
+    public void calculateScore(CalculateScore cal) {
+        this.scoreFrame = cal.calculate(this);
+    }
 
     public int getScoreFrame() {
         return scoreFrame;
     }
-
 
     @Override
     public String toString() {
