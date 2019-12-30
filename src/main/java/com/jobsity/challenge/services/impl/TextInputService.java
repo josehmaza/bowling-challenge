@@ -1,4 +1,4 @@
-package com.jobsity.challenge.services;
+package com.jobsity.challenge.services.impl;
 
 import com.jobsity.challenge.exception.BadFormatLineException;
 import com.jobsity.challenge.exception.BadInputException;
@@ -6,6 +6,7 @@ import com.jobsity.challenge.exception.BowlingFileException;
 import com.jobsity.challenge.exception.InvalidFormatScoreException;
 import com.jobsity.challenge.exception.InvalidScoreException;
 import com.jobsity.challenge.model.Result;
+import com.jobsity.challenge.services.InputService;
 import com.jobsity.challenge.utils.TextUtils;
 
 import java.io.BufferedReader;

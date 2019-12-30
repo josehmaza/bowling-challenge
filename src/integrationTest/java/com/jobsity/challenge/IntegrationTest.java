@@ -4,7 +4,8 @@ import com.jobsity.challenge.exception.BreakRuleBowlingException;
 import com.jobsity.challenge.model.Game;
 import com.jobsity.challenge.model.Result;
 import com.jobsity.challenge.services.BowlingService;
-import com.jobsity.challenge.services.TextInputService;
+import com.jobsity.challenge.services.IBowlingService;
+import com.jobsity.challenge.services.impl.TextInputService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class IntegrationTest {
     private static TextInputService textInputService;
-    private static BowlingService bowlingService;
+    private static IBowlingService bowlingService;
 
     @BeforeAll
     static void setUp() {

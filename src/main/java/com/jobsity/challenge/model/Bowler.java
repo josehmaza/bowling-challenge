@@ -1,17 +1,13 @@
 package com.jobsity.challenge.model;
 
+import lombok.Data;
+
+@Data
 public class Bowler {
     private String name;
 
     public Bowler(String namePlayer){
         this.name = namePlayer;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override

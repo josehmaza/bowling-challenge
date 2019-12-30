@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class BowlingServiceTest {
-    private static BowlingService bowlingService;
+    private static IBowlingService bowlingService;
     @BeforeAll
     static void setUp()  {
          bowlingService = BowlingService.getInstance();

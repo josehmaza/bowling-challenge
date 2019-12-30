@@ -5,7 +5,7 @@ import com.jobsity.challenge.exception.BreakRuleBowlingException;
 import com.jobsity.challenge.model.Roll;
 import com.jobsity.challenge.model.RollType;
 
-public class RollController {
+public class RollController implements IRollController {
     private static RollController single_instance = null;
     public static RollController getInstance() {
         if (single_instance == null)
@@ -14,6 +14,7 @@ public class RollController {
         return single_instance;
     }
 
+    @Override
     public Roll createRoll(Integer rollScore, Integer lastRollScore, boolean isLastFrame) throws BreakRuleBowlingException {
         if(rollScore != null){
             switch (rollScore){

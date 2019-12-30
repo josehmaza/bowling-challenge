@@ -3,21 +3,23 @@ package com.jobsity.challenge.services;
 
 import com.jobsity.challenge.constants.BowlingConstants;
 import com.jobsity.challenge.controller.GameController;
+import com.jobsity.challenge.controller.IGameController;
 import com.jobsity.challenge.exception.BreakRuleBowlingException;
 import com.jobsity.challenge.model.Bowler;
-import com.jobsity.challenge.model.CalculateScore;
+import com.jobsity.challenge.model.lambdas.CalculateScore;
 import com.jobsity.challenge.model.Frame;
 import com.jobsity.challenge.model.Game;
 import com.jobsity.challenge.model.PinFall;
 import com.jobsity.challenge.model.Result;
 import com.jobsity.challenge.model.Roll;
 import com.jobsity.challenge.model.RollType;
+import com.jobsity.challenge.validators.BowlingValidator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BowlingService {
-    private GameController gameController;
+public class BowlingService implements IBowlingService {
+    private IGameController gameController;
     private static BowlingService single_instance = null;
     private List<Game> games;
 
@@ -35,6 +37,7 @@ public class BowlingService {
     }
 
 
+    @Override
     public void addRoll(Result result) throws BreakRuleBowlingException {
         Boolean existsGamePlayer = games.stream().anyMatch(bowler -> bowler.getPlayer().getName().equals(result.getNamePlayer()));
         if (existsGamePlayer) {
@@ -49,13 +52,15 @@ public class BowlingService {
 
     }
 
+    @Override
     public List<Game> getGames() {
         return games;
     }
 
+    @Override
     public void calculateScores() throws BreakRuleBowlingException {
         for (Game game : games) {
-            validateRollsByGame(game);
+            BowlingValidator.validateRollsByGame(game);
         }
         games.stream().forEach(game -> {
 
@@ -89,23 +94,6 @@ public class BowlingService {
         });
     }
 
-    /**
-     * Validate that in a game a bowler has thrown all his rolls
-     * @param game
-     */
-    private void validateRollsByGame(Game game) throws BreakRuleBowlingException {
-        Frame lastFrame = game.getFrames().stream().filter(f -> f.getName() == BowlingConstants.LAST_FRAME).findAny().orElse(null);
-
-        if(lastFrame.getPinFall().getRolls().size() != 3){
-            throw new BreakRuleBowlingException(game.getPlayer()+" must throw 3 rolls in the last frame. Received "+lastFrame.getPinFall().getRolls().size());
-        }
-    }
-
-    private void validateThrowsNumberByGame(Game game) throws BreakRuleBowlingException {
-        if(game.getFrames().size() < 10){
-            throw new BreakRuleBowlingException("A Player can't have less than ten throws: Received "+game.getFrames().size());
-        }
-    }
     private int getNextRolls(Game game, int name, int numberOfRolls) {
         //Get the following frames
         int sumNext2Rolls = game.getFrames().stream().filter(f -> {
@@ -121,6 +109,7 @@ public class BowlingService {
         return sumNext2Rolls;
     }
 
+    @Override
     public void cleanGames() {
         this.games = new ArrayList<>();
     }

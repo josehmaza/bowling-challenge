@@ -4,14 +4,15 @@ import com.jobsity.challenge.constants.BowlingConstants;
 import com.jobsity.challenge.exception.BadInputException;
 import com.jobsity.challenge.exception.BowlingFileException;
 import com.jobsity.challenge.exception.BreakRuleBowlingException;
-import com.jobsity.challenge.model.FormatOutput;
+import com.jobsity.challenge.model.lambdas.FormatOutput;
 import com.jobsity.challenge.model.Frame;
 import com.jobsity.challenge.model.PinFall;
 import com.jobsity.challenge.model.Result;
 import com.jobsity.challenge.model.RollType;
 import com.jobsity.challenge.services.BowlingService;
+import com.jobsity.challenge.services.IBowlingService;
 import com.jobsity.challenge.services.InputService;
-import com.jobsity.challenge.services.TextInputService;
+import com.jobsity.challenge.services.impl.TextInputService;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -20,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         InputService textInputService = TextInputService.getInstance();
-        BowlingService bowLingService = BowlingService.getInstance();
+        IBowlingService bowLingService = BowlingService.getInstance();
         try {
             // Change name file(from resources folder ) for verify
             List<Result> results = textInputService.getResults("sample-input.txt");

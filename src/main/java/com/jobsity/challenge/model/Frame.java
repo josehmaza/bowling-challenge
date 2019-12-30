@@ -1,10 +1,19 @@
 package com.jobsity.challenge.model;
 
-public class Frame implements Scoreable, PrintableConsole{
+import com.jobsity.challenge.model.lambdas.CalculateScore;
+import com.jobsity.challenge.model.lambdas.FormatOutput;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+
+@Data
+public class Frame implements Scoreable, PrintableConsole {
     private int name;
     private PinFall pinFall;
+    @Setter(AccessLevel.NONE)
     private int scoreFrame;
     private String customFormat;
+
     public Frame(int nameFrame) {
         this.name = nameFrame;
         this.pinFall = new PinFall();
@@ -12,30 +21,11 @@ public class Frame implements Scoreable, PrintableConsole{
 
     }
 
-    public PinFall getPinFall() {
-        return pinFall;
-    }
-
-    public void setPinFall(PinFall pinFall) {
-        this.pinFall = pinFall;
-    }
-
-    public int getName() {
-        return name;
-    }
-
-    public void setName(int name) {
-        this.name = name;
-    }
-
     @Override
     public void calculateScore(CalculateScore cal) {
         this.scoreFrame = cal.calculate(this);
     }
 
-    public int getScoreFrame() {
-        return scoreFrame;
-    }
 
     @Override
     public void formatOutput(FormatOutput format) {

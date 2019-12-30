@@ -1,5 +1,8 @@
 package com.jobsity.challenge.model;
 
+import lombok.Data;
+
+@Data
 public class Result {
     private String namePlayer;
     private Integer points;
@@ -9,19 +12,4 @@ public class Result {
         this.points = points;
     }
 
-    public String getNamePlayer() {
-        return namePlayer;
-    }
-
-    public void setNamePlayer(String namePlayer) {
-        this.namePlayer = namePlayer;
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
 }

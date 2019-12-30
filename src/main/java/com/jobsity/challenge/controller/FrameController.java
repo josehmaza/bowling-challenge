@@ -6,8 +6,8 @@ import com.jobsity.challenge.model.Frame;
 import com.jobsity.challenge.model.Roll;
 import com.jobsity.challenge.model.RollType;
 
-public class FrameController {
-    private RollController rollController;
+public class FrameController implements IFrameController {
+    private IRollController rollController;
 
     private static FrameController single_instance = null;
 
@@ -22,6 +22,7 @@ public class FrameController {
         return single_instance;
     }
 
+    @Override
     public void addRoll(Frame frame, Integer rollScore) throws BreakRuleBowlingException {
         Integer rollNumbers = frame.getPinFall().getRolls().size();
         Roll newRoll;
@@ -35,6 +36,7 @@ public class FrameController {
 
     }
 
+    @Override
     public boolean canAddRollToThisFrame(Frame frame) throws BreakRuleBowlingException {
         boolean isLastFrame = frame.getName() == BowlingConstants.LAST_FRAME;
         Integer rollNumbers = frame.getPinFall().getRolls().size();

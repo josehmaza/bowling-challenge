@@ -1,6 +1,7 @@
 package com.jobsity.challenge.services;
 
 import com.jobsity.challenge.exception.BadInputException;
+import com.jobsity.challenge.services.impl.TextInputService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

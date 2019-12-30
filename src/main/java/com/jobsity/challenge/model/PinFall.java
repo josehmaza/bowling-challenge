@@ -1,10 +1,18 @@
 package com.jobsity.challenge.model;
 
+import com.jobsity.challenge.model.lambdas.CalculateScore;
+import com.jobsity.challenge.model.lambdas.FormatOutput;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class PinFall implements Scoreable, PrintableConsole {
     private List<Roll> rolls;;
+    @Setter(AccessLevel.NONE)
     private Integer scorePinfall;
     private String customFormat;
     public PinFall(){

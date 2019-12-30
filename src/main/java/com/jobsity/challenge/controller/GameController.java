@@ -8,8 +8,8 @@ import com.jobsity.challenge.model.Result;
 
 import java.util.List;
 
-public class GameController {
-    private FrameController frameController;
+public class GameController implements IGameController {
+    private IFrameController frameController;
 
     private static GameController single_instance = null;
     public GameController(){
@@ -22,6 +22,7 @@ public class GameController {
         return single_instance;
     }
 
+    @Override
     public void addRoll(Result result, Game gamePlayer) throws BreakRuleBowlingException {
         List<Frame> frames = gamePlayer.getFrames();
 
