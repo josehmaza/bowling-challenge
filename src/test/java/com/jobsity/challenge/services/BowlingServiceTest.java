@@ -7,7 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,6 @@ class BowlingServiceTest {
     static void setUp()  {
          bowlingService = BowlingService.getInstance();
     }
-
 
     @DisplayName("When a bowler has 2 rolls and its knocked down pins sum is more than 10. expected BreakRuleException")
     @Test
@@ -56,11 +56,9 @@ class BowlingServiceTest {
                 bowlingService.addRoll(result);
             }
         });
-        String expectedMessage = "No more rolls allowed";
+        String expectedMessage = "A Player can't have more than ten throws. Last frame already has 3 rolls";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
-    @Test
-    void calculateScores() {
-    }
+
 }

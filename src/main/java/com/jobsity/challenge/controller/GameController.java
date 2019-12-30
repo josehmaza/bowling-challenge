@@ -29,7 +29,7 @@ public class GameController {
             frames.add(new Frame(1));
         }
 
-        if(frameController.canAddRoll(frames.get(frames.size() -1))){
+        if(frameController.canAddRollToThisFrame(frames.get(frames.size() -1))){
             frameController.addRoll(frames.get(frames.size() -1), result.getPoints());
         }else{
             if(frames.size() == BowlingConstants.LAST_FRAME){

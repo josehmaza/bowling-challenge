@@ -5,7 +5,6 @@ import com.jobsity.challenge.exception.BadInputException;
 import com.jobsity.challenge.exception.BowlingFileException;
 import com.jobsity.challenge.exception.InvalidFormatScoreException;
 import com.jobsity.challenge.exception.InvalidScoreException;
-import com.jobsity.challenge.exception.ThrowNumberException;
 import com.jobsity.challenge.model.Result;
 import com.jobsity.challenge.utils.TextUtils;
 
@@ -45,7 +44,6 @@ public class TextInputService implements InputService {
         //NO se encontro el archivo
 
         ClassLoader classLoader = getClass().getClassLoader();
-        //try (InputStream inputStream = classLoader.getResourceAsStream(fileName)) {
             InputStream inputStream = classLoader.getResourceAsStream(fileName);
             if(inputStream == null){
                 throw new BowlingFileException("Failed to read file "+fileName+": File not found");
@@ -55,36 +53,8 @@ public class TextInputService implements InputService {
                         return TextUtils.lineToResult(line);
                     })
                     .collect(Collectors.toList());
-             validateThrows(results);
              return results;
-        //} catch (IOException e) {
-        //}
 
-    }
-
-    private void validateThrows(List<Result> results) throws BadInputException {
-        Map<String, Integer> playerDistinct = results.stream()
-                .filter(distinctByKey(r -> r.getNamePlayer()))
-
-                .collect(Collectors.toMap(p -> p.getNamePlayer(), p -> 0));
-        String lastPlayer = "";
-        for (Result result : results) {
-            if(!result.getNamePlayer().equals(lastPlayer)){
-                lastPlayer = result.getNamePlayer();
-                int throwNumber = playerDistinct.get(result.getNamePlayer());
-                throwNumber++;
-                if(throwNumber > 10){
-                    throw new ThrowNumberException("A Player can't have more than ten throws: "+throwNumber);
-                }
-                playerDistinct.put(result.getNamePlayer(), throwNumber++);
-            }
-        }
-
-        for (Map.Entry<String, Integer> entry : playerDistinct.entrySet()) {
-            if(entry.getValue() < 10){
-                throw new ThrowNumberException("A Player can't have less than ten throws: "+entry.getKey()+" "+entry.getValue());
-            }
-        }
 
     }
 
