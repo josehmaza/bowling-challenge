@@ -48,6 +48,10 @@ public class BowlingService {
         return games;
     }
 
+    public void calculateScores() {
+
+    }
+
     private int getNextRolls(Game game, int name, int numberOfRolls) {
         //Get the following frames
         int sumNext2Rolls = game.getFrames().stream().filter(f -> {
