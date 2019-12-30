@@ -1,6 +1,6 @@
 package com.jobsity.challenge.model;
 
-public class Frame implements Scoreable{
+public class Frame implements Scoreable, PrintableConsole{
     private int name;
     private PinFall pinFall;
     private int scoreFrame;
@@ -35,6 +35,11 @@ public class Frame implements Scoreable{
 
     public int getScoreFrame() {
         return scoreFrame;
+    }
+
+    @Override
+    public void formatOutput(FormatOutput format) {
+        this.customFormat = format.format(this);
     }
 
     @Override

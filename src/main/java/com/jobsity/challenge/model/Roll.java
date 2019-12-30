@@ -23,9 +23,4 @@ public class Roll {
     public void setRollType(RollType rollType) {
         this.rollType = rollType;
     }
-
-    @Override
-    public String toString() {
-        return new Integer(knockedDownPins).toString()+" "+rollType;
-    }
 }
