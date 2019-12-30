@@ -13,8 +13,6 @@ import com.jobsity.challenge.services.BowlingService;
 import com.jobsity.challenge.services.InputService;
 import com.jobsity.challenge.services.TextInputService;
 
-
-import java.io.File;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -24,7 +22,8 @@ public class Main {
         InputService textInputService = TextInputService.getInstance();
         BowlingService bowLingService = BowlingService.getInstance();
         try {
-            List<Result> results = textInputService.getResults("results.txt");
+            // Change name file(from resources folder ) for verify
+            List<Result> results = textInputService.getResults("sample-input.txt");
             for (Result result : results) {
                 bowLingService.addRoll(result);
             }
@@ -38,7 +37,7 @@ public class Main {
                 //Print player
                 System.out.println(game.getPlayer());
                 //============
-                //Print pïnfalls
+                //Print pinfalls
                 System.out.print("Pinfalls\t");
 
                 game.getFrames().stream().forEach(frame -> {

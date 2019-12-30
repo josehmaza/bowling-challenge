@@ -53,8 +53,13 @@ public class BowlingService {
         return games;
     }
 
-    public void calculateScores() {
+    public void calculateScores() throws BreakRuleBowlingException {
+        for (Game game : games) {
+            validateRollsByGame(game);
+        }
         games.stream().forEach(game -> {
+
+            //Calculate Pinfall scores
             for (Frame frame : game.getFrames()) {
                 CalculateScore<PinFall> calculateScorePinfall = pinfall -> {
                     Integer sum = pinfall.getRolls().stream().mapToInt(Roll::getKnockedDownPins).reduce((a, b) -> a + b).orElse(0);
@@ -62,6 +67,7 @@ public class BowlingService {
                 };
                 frame.getPinFall().calculateScore(calculateScorePinfall);
             }
+            //calculate frame scores
             for (int i = 0; i < game.getFrames().size(); i++) {
                 final int index = i;
                 CalculateScore<Frame> calculateScoreFrame = f -> {
@@ -83,6 +89,23 @@ public class BowlingService {
         });
     }
 
+    /**
+     * Validate that in a game a bowler has thrown all his rolls
+     * @param game
+     */
+    private void validateRollsByGame(Game game) throws BreakRuleBowlingException {
+        Frame lastFrame = game.getFrames().stream().filter(f -> f.getName() == BowlingConstants.LAST_FRAME).findAny().orElse(null);
+
+        if(lastFrame.getPinFall().getRolls().size() != 3){
+            throw new BreakRuleBowlingException(game.getPlayer()+" must throw 3 rolls in the last frame. Received "+lastFrame.getPinFall().getRolls().size());
+        }
+    }
+
+    private void validateThrowsNumberByGame(Game game) throws BreakRuleBowlingException {
+        if(game.getFrames().size() < 10){
+            throw new BreakRuleBowlingException("A Player can't have less than ten throws: Received "+game.getFrames().size());
+        }
+    }
     private int getNextRolls(Game game, int name, int numberOfRolls) {
         //Get the following frames
         int sumNext2Rolls = game.getFrames().stream().filter(f -> {
@@ -96,5 +119,9 @@ public class BowlingService {
                 .reduce((a, b) -> a + b).orElse(0);
 
         return sumNext2Rolls;
+    }
+
+    public void cleanGames() {
+        this.games = new ArrayList<>();
     }
 }
