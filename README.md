@@ -1,3 +1,4 @@
+
 # Ten-pin bowling challenge
 
 # Overview
@@ -83,5 +84,5 @@ The test to run will be:
 
 ## Author
 [Hernan Maza S.](mailto:josehmaza@gmail.com)
-### Note
+## Note
 All bonus tasks were developed. 
