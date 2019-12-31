@@ -37,6 +37,9 @@ public class BowlingService implements IBowlingService {
     }
 
 
+    /**
+     * Add a Result. If it Result has a new Bowler, the method will create other game for it bowler.
+     */
     @Override
     public void addRoll(Result result) throws BreakRuleBowlingException {
         Boolean existsGamePlayer = games.stream().anyMatch(bowler -> bowler.getPlayer().getName().equals(result.getNamePlayer()));
@@ -57,6 +60,9 @@ public class BowlingService implements IBowlingService {
         return games;
     }
 
+    /**
+     * Calculate scores from all bowlers. Results inserted is required
+     */
     @Override
     public void calculateScores() throws BreakRuleBowlingException {
         for (Game game : games) {
@@ -94,6 +100,13 @@ public class BowlingService implements IBowlingService {
         });
     }
 
+    /**
+     * Get n following rolls from the name of a frame.
+     * @param game 
+     * @param name of frame
+     * @param numberOfRolls follwing that I want
+     * @return
+     */
     private int getNextRolls(Game game, int name, int numberOfRolls) {
         //Get the following frames
         int sumNext2Rolls = game.getFrames().stream().filter(f -> {
@@ -108,7 +121,7 @@ public class BowlingService implements IBowlingService {
 
         return sumNext2Rolls;
     }
-
+    
     @Override
     public void cleanGames() {
         this.games = new ArrayList<>();

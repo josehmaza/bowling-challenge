@@ -27,7 +27,7 @@ public class Main {
             List<Result> results = textInputService.getResults("sample-input.txt");
             for (Result result : results) {
                 bowLingService.addRoll(result);
-            }
+            }   
             bowLingService.calculateScores();
             //Print
             System.out.print("Frame\t\t");
@@ -83,11 +83,11 @@ public class Main {
                 System.out.println();
             });
         } catch (BowlingFileException | BadInputException e) {
-            System.out.println("ERROR con el input: => " + e.getMessage());
+            System.out.println("ERROR with input: => " + e.getMessage());
         } catch (BreakRuleBowlingException e) {
-            System.out.println("Error en reglas del Bowling : " + e.getMessage());
+            System.out.println("Error with bowling rules: " + e.getMessage());
         }
 
-        System.out.println("============================");
+        System.out.println("============ END :) ================");
     }
 }

@@ -22,6 +22,9 @@ public class FrameController implements IFrameController {
         return single_instance;
     }
 
+    /**
+     * Add roll to specific frame
+     */
     @Override
     public void addRoll(Frame frame, Integer rollScore) throws BreakRuleBowlingException {
         Integer rollNumbers = frame.getPinFall().getRolls().size();

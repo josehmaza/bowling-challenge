@@ -21,7 +21,9 @@ public class GameController implements IGameController {
 
         return single_instance;
     }
-
+    /**
+     * Allow add roll to a game of a apleyer
+     */
     @Override
     public void addRoll(Result result, Game gamePlayer) throws BreakRuleBowlingException {
         List<Frame> frames = gamePlayer.getFrames();

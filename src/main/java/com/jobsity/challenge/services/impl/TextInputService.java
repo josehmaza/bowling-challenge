@@ -35,8 +35,9 @@ public class TextInputService implements InputService {
     }
 
     /**
-     * @param fileName
-     * @return
+     * From filename read file and get as List of Results 
+     * @param fileName to read in Resources folder
+     * @return List<Result> 
      * @throws IOException
      */
     @Override
@@ -59,12 +60,13 @@ public class TextInputService implements InputService {
 
     }
 
-    public static <T> Predicate<T> distinctByKey(
-            Function<? super T, ?> keyExtractor) {
-
-        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
-        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-    }
+    /**
+     * Get lines(List<String>) from inputStream
+     * @param inputStream
+     * @return List<String>
+     * @throws BowlingFileException 
+     * @throws BadInputException
+     */
     private List<String> readFromInputStream(InputStream inputStream)
             throws BowlingFileException, BadInputException {
         StringBuilder resultStringBuilder = new StringBuilder();
@@ -83,6 +85,11 @@ public class TextInputService implements InputService {
         return lines;
     }
 
+    /**
+     * Validate format and correct score from a result(line)
+     * @param line
+     * @throws BadInputException
+     */
     public void validateLine(String line) throws BadInputException {
         String[] elements = line.split("\t");
         if (elements.length != 2) {
